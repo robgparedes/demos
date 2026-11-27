@@ -65,21 +65,19 @@
   .menu-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px}
   .menu-toggle span{display:block;width:24px;height:1.5px;background:var(--ink);margin:6px 0}
 
-  /* Hero */
-  .hero{padding:72px 0 88px;background:linear-gradient(180deg,var(--cream) 0%,var(--sand) 100%)}
-  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
-  .hero h1{font-size:clamp(2.7rem,6vw,4.6rem);margin:.8rem 0 .3rem;font-weight:500}
+  /* Hero: full-bleed photo on the right, fading into the text side */
+  .hero{position:relative;min-height:600px;display:flex;align-items:center;background:var(--cream);overflow:hidden}
+  .hero::after{content:"";position:absolute;top:0;right:0;bottom:0;width:56%;background:url("img/clinic-room.jpg") 50% 45%/cover no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);mask-image:linear-gradient(90deg,transparent 0,#000 22%)}
+  .hero .wrap{position:relative;z-index:1;width:min(1140px,92%)}
+  .hero-text{max-width:520px;padding:80px 0}
+  .hero h1{font-size:clamp(2.4rem,4.4vw,3.7rem);margin:.8rem 0 .3rem;font-weight:500}
   .hero h1 em{font-style:italic;color:var(--gold-dark)}
   .tagline{font-family:var(--serif);font-style:italic;font-size:1.45rem;color:var(--gold-dark);margin-bottom:1.2rem}
-  .hero p.intro{color:var(--muted);max-width:500px;margin-bottom:2rem}
+  .hero p.intro{color:var(--muted);max-width:480px;margin-bottom:2rem}
   .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
   .hero-facts{display:flex;gap:34px;margin-top:2.6rem;padding-top:1.6rem;border-top:1px solid var(--line);flex-wrap:wrap}
   .hero-facts div{font-size:.92rem;color:var(--muted)}
   .hero-facts b{display:block;font-family:var(--serif);font-size:1.2rem;color:var(--ink);font-weight:600}
-  .hero-photo{position:relative}
-  .hero-photo .frame{border-radius:240px 240px var(--radius) var(--radius);overflow:hidden;aspect-ratio:3/4;box-shadow:0 30px 60px -30px rgba(58,42,26,.45)}
-  .hero-photo .frame img{width:100%;height:100%;object-fit:cover}
-  .hero-photo::before{content:"";position:absolute;inset:-14px 14px 14px -14px;border:1px solid var(--gold-light);border-radius:250px 250px var(--radius) var(--radius);z-index:-1}
 
   /* Services */
   .services{background:var(--white)}
@@ -154,8 +152,10 @@
 
   @media (max-width:960px){
     section{padding:72px 0}
-    .hero-grid,.book-grid,.loc-grid{grid-template-columns:1fr;gap:44px}
-    .hero-photo{max-width:420px;margin:0 auto;width:90%}
+    .book-grid,.loc-grid{grid-template-columns:1fr;gap:44px}
+    .hero{min-height:0}
+    .hero::after{width:100%;opacity:.14;-webkit-mask-image:none;mask-image:none;background-position:center}
+    .hero-text{padding:64px 0}
     .svc-grid,.rev-grid{grid-template-columns:1fr 1fr}
     .rev-grid .rev:nth-child(4){grid-column:auto}
     .foot-grid{grid-template-columns:1fr 1fr}
@@ -175,7 +175,7 @@
     .gallery-grid figure:first-child{grid-row:auto;aspect-ratio:3/4}
     .gallery-grid .ph{min-height:160px}
     form{padding:28px 22px}
-    .hero{padding-top:48px}
+    .hero-text{padding:48px 0 56px}
     .hero-facts{gap:22px}
     .sticky-bar{display:grid;grid-template-columns:1fr 1fr;position:fixed;bottom:0;left:0;right:0;z-index:60;box-shadow:0 -6px 20px rgba(58,42,26,.15)}
     .sticky-bar a{padding:18px 10px;text-align:center;text-decoration:none;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
@@ -208,10 +208,10 @@
 
 <main>
   <section class="hero" id="home">
-    <div class="wrap hero-grid">
-      <div>
+    <div class="wrap">
+      <div class="hero-text">
         <span class="eyebrow">Brgy. Dila &middot; Santa Rosa</span>
-        <h1>Welcome to <em>Querol</em> Dental Center</h1>
+        <h1>Welcome to<br><em>Querol</em> Dental Center</h1>
         <p class="tagline">Your Dental Care Best Partner</p>
         <p class="intro">Dental care in a calm, private clinic on the National Highway. We prioritize scheduled visits, and walk-ins are welcome when time allows.</p>
         <div class="hero-actions">
@@ -223,9 +223,6 @@
           <div><b>10 AM &ndash; 5 PM</b>Clinic hours</div>
           <div><b>ETG Building</b>Unit 205, 2nd Floor</div>
         </div>
-      </div>
-      <div class="hero-photo">
-        <div class="frame"><img src="img/clinic-room.jpg" alt="Treatment room at Querol Dental Center with dental chair and equipment" width="1050" height="1400"></div>
       </div>
     </div>
   </section>
